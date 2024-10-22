@@ -49,6 +49,12 @@ test: ## Runs all project tests
 	@echo "Running tests..."
 	go test ./...
 
+# Covering
+.PHONY: covering
+covering:
+	go test ./... -coverprofile=coverage.out
+	go tool cover -html=coverage.out
+
 # Clean up
 .PHONY: clean
 clean: docker-down ## Stops containers, removes networks, and performs general clean-up

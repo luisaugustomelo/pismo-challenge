@@ -99,3 +99,8 @@ This project includes a Makefile for simplifying common tasks such as starting D
 - make migrate-drop: Drops all database tables.
 - make test: Runs all the tests in the project.
 - make docker-down: Stops and removes Docker Compose containers and networks.
+  
+## Future improvements
+
+1. Add greater test coverage to other application modules, allowing coverage levels to exceed 90%
+2. Add authentication schemes
