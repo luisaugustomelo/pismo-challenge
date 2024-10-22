@@ -1,0 +1,214 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/accounts": {
+            "post": {
+                "description": "Creates a new account with the provided document number.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Create a new account",
+                "parameters": [
+                    {
+                        "example": "\"12345678900\"",
+                        "description": "Document Number",
+                        "name": "document_number",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "account_id and document_number of the created account",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AccountResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request or account already exists",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}": {
+            "get": {
+                "description": "Retrieves the account details using the account ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Get an account by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "account_id and document_number of the retrieved account",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AccountResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid accountId provided",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse400"
+                        }
+                    },
+                    "404": {
+                        "description": "Account not found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse404"
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions": {
+            "post": {
+                "description": "Creates a transaction with the provided account ID, operation type ID, and amount.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Create a new transaction",
+                "parameters": [
+                    {
+                        "description": "Transaction request",
+                        "name": "transaction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TransactionRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "transaction_id, account_id, operation_type_id, and amount of the created transaction",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TransactionResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request or failed transaction creation",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse400"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.AccountResponse": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "document_number": {
+                    "type": "string",
+                    "example": "12345678900"
+                }
+            }
+        },
+        "handlers.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "account with this document number already exists"
+                }
+            }
+        },
+        "handlers.ErrorResponse400": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "invalid accountId provided"
+                }
+            }
+        },
+        "handlers.ErrorResponse404": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "account not found"
+                }
+            }
+        },
+        "handlers.TransactionRequest": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 123.45
+                },
+                "operation_type_id": {
+                    "type": "integer",
+                    "example": 4
+                }
+            }
+        },
+        "handlers.TransactionResponse": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 123.45
+                },
+                "operation_type_id": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "transaction_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        }
+    }
+}
