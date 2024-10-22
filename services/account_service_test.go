@@ -3,6 +3,7 @@ package services
 import (
 	"errors"
 	"github.com/luisaugustomelo/pismo-challenge/models"
+	"github.com/luisaugustomelo/pismo-challenge/services/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gorm.io/gorm"
@@ -10,7 +11,7 @@ import (
 )
 
 func TestCreateAccountSuccess(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	documentNumber := "12345678900"
@@ -30,7 +31,7 @@ func TestCreateAccountSuccess(t *testing.T) {
 }
 
 func TestCreateAccountAlreadyExists(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	documentNumber := "12345678900"
@@ -48,7 +49,7 @@ func TestCreateAccountAlreadyExists(t *testing.T) {
 }
 
 func TestCreateAccountDatabaseError(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	documentNumber := "12345678900"
@@ -66,7 +67,7 @@ func TestCreateAccountDatabaseError(t *testing.T) {
 }
 
 func TestGetAccountSuccess(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	accountID := uint(1)
@@ -89,7 +90,7 @@ func TestGetAccountSuccess(t *testing.T) {
 }
 
 func TestGetAccountNotFound(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	accountID := uint(1)
@@ -106,7 +107,7 @@ func TestGetAccountNotFound(t *testing.T) {
 }
 
 func TestGetAccountError(t *testing.T) {
-	mockDB := new(MockDB)
+	mockDB := new(mocks.MockDB)
 	accountService := NewAccountService(mockDB)
 
 	accountID := uint(1)
