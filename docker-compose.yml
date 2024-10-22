@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: pismo
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pismo-db
+      MYSQL_USER: pismodbuser
+      MYSQL_PASSWORD: pismodbpassword
+    ports:
+      - "3306:3306"
+    networks:
+      - pismo-network
+
+networks:
+  pismo-network:
+    driver: bridge
