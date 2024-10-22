@@ -12,26 +12,13 @@ Go installed (version 1.18 or higher)
 ### Step-by-Step Setup
 
 #### 1. Start the Database with Docker
-To start the database, run the following command in the project root directory where the `docker-compose.yml` file is located:
+To start the application environment (install dependencies, docker-compose up and swagger doc generation):
 
 ```bash
-docker-compose up -d
+make run
 ```
 
-This will launch the database in a detached mode. You can verify that the database is running by checking the Docker containers:
-
-```
-docker ps
-```
-
-#### 2. Install and Run the Backend (Go)
-Navigate to the backend directory and install the necessary Go modules:
-
-```
-go mod tidy
-```
-
-Then, start the Go backend server:
+Starting application:
 
 ```
 go run main.go
@@ -54,20 +41,6 @@ Update the .env file with your environment-specific details.
 #### Fallback to .env-example
 If the .env file is not present, the application will automatically use the values from .env-example.
 
-### Running Migrations (Optional)
-You can run database migrations using the Makefile. To create or drop tables using migrations, use the following commands:
-
-Run migrations to create tables:
-```
-make migrate
-```
-Drop the database tables:
-```
-make migrate-drop
-```
-
-Obs: **migrations will be run automatically when starting the application**
-
 ### Swagger Documentation
 To generate and serve Swagger documentation for the API, follow these steps:
 
@@ -84,17 +57,11 @@ Backend: The backend API will be running on http://localhost:3333.
 
 ### Summary of Commands
 ```
-# Start the database with Docker
-docker-compose up -d
-
-# Install backend dependencies
-go mod tidy
+# Start all environment
+make docker-up
 
 # Run the Go backend
 go run main.go
-
-# Run database migrations
-make migrate
 
 # Drop database tables
 make migrate-drop
@@ -129,7 +96,6 @@ This project includes a Makefile for simplifying common tasks such as starting D
 - make stop: Stops all services and removes networks created by Docker Compose.
 - make swag: Generates the Swagger documentation.
 - make deps: Installs the Go project dependencies.
-- make migrate: Runs the database migrations to create tables.
 - make migrate-drop: Drops all database tables.
 - make test: Runs all the tests in the project.
 - make docker-down: Stops and removes Docker Compose containers and networks.

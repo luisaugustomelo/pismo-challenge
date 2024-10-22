@@ -8,7 +8,7 @@ all: build run
 
 # Starts the development environment
 .PHONY: run
-run: docker-up swag deps migrate ## Starts docker-compose and runs migrations
+run: docker-up swag deps ## Starts docker-compose and runs migrations
 
 # Stops the development environment
 .PHONY: stop
@@ -36,12 +36,6 @@ swag: ## Generates Swagger documentation
 deps: ## Installs Go dependencies
 	@echo "Running go mod tidy to install dependencies..."
 	go mod tidy
-
-# Migrations to set up the database
-.PHONY: migrate
-migrate: ## Runs migrations to create the database tables
-	@echo "Running database migrations..."
-	go run $(MIGRATION_FILE)
 
 # Migrations to drop the database
 .PHONY: migrate-drop
